@@ -1,7 +1,7 @@
 import { colors } from "@/constants/theme";
 import { useAuth } from "@clerk/clerk-expo";
 import { Text, TouchableOpacity, View } from "react-native";
-
+import React from "react";
 export default function Index() {
   const { signOut } = useAuth();
   return (
