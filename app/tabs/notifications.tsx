@@ -1,9 +1,10 @@
-import { View, Text } from "react-native";
+import { colors } from "@/constants/theme";
 import React from "react";
+import { Text, View } from "react-native";
 
 const notifications = () => {
   return (
-    <View>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
       <Text>notifications</Text>
     </View>
   );

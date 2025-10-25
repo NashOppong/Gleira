@@ -50,9 +50,9 @@ const TabLayout = () => {
       <Tabs.Screen
         name="notifications"
         options={{
-          title: "NOTIFICATIONS",
+          title: "INBOX",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="heart-outline" size={size} color={color} />
+            <Ionicons name="mail-outline" size={size} color={color} />
           ),
         }}
       />

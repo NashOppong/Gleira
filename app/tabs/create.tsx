@@ -43,7 +43,15 @@ const createScreen = () => {
           mimeType: "image/jpeg",
         }
       );
-    } catch (error) {}
+      if (uploadResult.status !== 200) throw new Error("Upload failed");
+      const { storageId } = JSON.parse(uploadResult.body);
+      await createPost({ caption, storageId });
+      router.push("/tabs");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSharing(false);
+    }
   };
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -102,9 +110,7 @@ const createScreen = () => {
               isSharing && styles.shareButtonDisabled,
             ]}
             disabled={isSharing || !selectedImage}
-            onPress={() => {
-              console.log("handleShare");
-            }}
+            onPress={handleShare}
           >
             {isSharing ? (
               <ActivityIndicator size="small" color={colors.primary} />
