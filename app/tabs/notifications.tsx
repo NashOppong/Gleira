@@ -1,6 +1,6 @@
-import { colors } from "@/constants/theme";
+import { View, Text } from "react-native";
 import React from "react";
-import { Text, View } from "react-native";
+import { colors } from "@/constants/theme";
 
 const notifications = () => {
   return (

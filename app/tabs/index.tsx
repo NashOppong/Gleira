@@ -1,25 +1,14 @@
-import { Loader } from "@/components/Loader";
-import Post from "@/components/Post";
+import PostFlatList from "@/components/postflatlist";
 import Story from "@/components/Story";
 import { colors } from "@/constants/theme";
-import { api } from "@/convex/_generated/api";
 import { styles } from "@/styles/feed.styles";
-import { useAuth } from "@clerk/clerk-expo";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useQuery } from "convex/react";
 import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
-  const { signOut } = useAuth();
-
-  //
-  const post = useQuery(api.posts.getFeedPost);
-  if (post === undefined) return <Loader />;
-  if (Post.length === 0) return <NoPostsFound />;
-
   return (
-    <ScrollView style={{ backgroundColor: colors.background, flexGrow: 1 }}>
+    <View style={{ backgroundColor: colors.background, flexGrow: 1 }}>
       <View style={styles.container}>
         {/* HEADER */}
         <View style={styles.header}>
@@ -35,9 +24,9 @@ export default function Index() {
           </TouchableOpacity>
         </View>
 
-        <ScrollView
+        <View
           style={{ marginTop: 10 }}
-          showsVerticalScrollIndicator={false}
+          //showsVerticalScrollIndicator={false}
         >
           <Text
             style={{
@@ -51,29 +40,15 @@ export default function Index() {
             Stories
           </Text>
           <Story />
-        </ScrollView>
-        <ScrollView
-          style={{ marginTop: 10 }}
-          showsVerticalScrollIndicator={false}
+        </View>
+        <View
+          style={{ marginTop: 5 }}
+          //showsVerticalScrollIndicator={false}
+          //scrollEnabled
         >
-          {post.map((post) => (
-            <Post post={post} key={post._id} />
-          ))}
-        </ScrollView>
+          <PostFlatList />
+        </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
-
-const NoPostsFound = () => (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: colors.background,
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-  >
-    <Text style={{ fontSize: 20, color: colors.primary }}>No posts yet</Text>
-  </View>
-);

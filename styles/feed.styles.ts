@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     fontWeight: "800",
   },
   storiesContainer: {
-    paddingVertical: 10,
+    paddingVertical: 5,
     borderBottomWidth: 1,
     borderBottomColor: colors.surface,
   },
@@ -124,6 +124,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 12,
     paddingVertical: 12,
+    marginLeft: 10,
+    marginRight: 15,
+    borderBottomWidth: 1,
+    // borderBottomColor: colors.grey,
   },
   postActionsLeft: {
     flexDirection: "row",
@@ -132,6 +136,7 @@ export const styles = StyleSheet.create({
   },
   postInfo: {
     paddingHorizontal: 12,
+    marginLeft: 10,
   },
   likesText: {
     fontSize: 14,
@@ -164,6 +169,8 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.grey,
     marginBottom: 8,
+    //borderBottomWidth: 1,
+    //borderBottomColor: colors.grey,
   },
   modalContainer: {
     backgroundColor: colors.background,

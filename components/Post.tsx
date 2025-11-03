@@ -12,14 +12,22 @@ const Post = ({ post }: { post: any }) => {
       {/* POST HEADER */}
       <View style={styles.postHeader}>
         <Link href={"/tabs/notifications"}>
-          <TouchableOpacity style={styles.postHeaderLeft}>
-            <Image
-              source={post.author.image}
-              style={styles.postAvatar}
-              contentFit="cover"
-              transition={200}
-              cachePolicy="memory-disk"
-            />
+          <TouchableOpacity
+            style={styles.postHeaderLeft}
+            onPress={() => {
+              console.log("clicked");
+            }}
+          >
+            <TouchableOpacity onPress={() => console.log("image pressed")}>
+              <Image
+                source={post.author.image}
+                style={styles.postAvatar}
+                contentFit="cover"
+                transition={200}
+                cachePolicy="memory-disk"
+              />
+            </TouchableOpacity>
+
             <Text style={styles.postUsername}>{post.author.fullname}</Text>
           </TouchableOpacity>
         </Link>
@@ -36,9 +44,7 @@ const Post = ({ post }: { post: any }) => {
           cachePolicy="memory-disk"
         />
       </View>
-      <View style={styles.postCaption}>
-        <Text style={styles.postCaptionText}>{post.caption}</Text>
-      </View>
+
       {/* POST ACTIONS */}
       <View style={styles.postActions}>
         <View style={styles.postActionsLeft}>
@@ -56,6 +62,22 @@ const Post = ({ post }: { post: any }) => {
         <TouchableOpacity onPress={() => "handleBookmark"}>
           <Ionicons name={"bookmark-outline"} size={22} color={colors.white} />
         </TouchableOpacity>
+      </View>
+
+      {/* POST INFO */}
+      <View style={styles.postInfo}>
+        <Text style={styles.likesText}>Be the first to like</Text>
+        {post.caption && (
+          <View style={styles.captionContainer}>
+            <Text style={styles.captionUsername}>{post.author.username}</Text>
+            <Text style={styles.captionText}>{post.caption}</Text>
+          </View>
+        )}
+        <TouchableOpacity>
+          <Text style={styles.commentsText}>View all comments</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.timeAgo}>2hrs ago</Text>
       </View>
     </View>
   );

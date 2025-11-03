@@ -9,6 +9,7 @@ export function Loader() {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: colors.background,
+        marginTop: 10,
       }}
     >
       <ActivityIndicator size="large" color={colors.primary} />

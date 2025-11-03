@@ -51,7 +51,7 @@ export const getFeedPost = query({
     // enhance posts with user information
     const postsWithInfo = await Promise.all(
       posts.map(async (post) => {
-        const PostAuthor = await ctx.db.get(post.userId);
+        const PostAuthor = (await ctx.db.get(post.userId))!;
         const likes = await ctx.db
           .query("likes")
           .withIndex("by_user_and_post", (q) =>
@@ -80,5 +80,59 @@ export const getFeedPost = query({
       })
     );
     return postsWithInfo;
+  },
+});
+
+export const getPostsByUser = query({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => {
+    const posts = await ctx.db
+      .query("posts")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .collect();
+    return posts;
+  },
+});
+
+export const toggleLike = mutation({
+  args: { postId: v.id("posts") },
+  handler: async (ctx, args) => {
+    const currentUser = await getAuthenticatedUser(ctx);
+    const existingLike = await ctx.db
+      .query("likes")
+      .withIndex("by_user_and_post", (q) =>
+        q.eq("userId", currentUser._id).eq("postId", args.postId)
+      )
+      .first();
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+    if (existingLike) {
+      //remove like
+      await ctx.db.delete(existingLike._id);
+      //decrement likes
+      await ctx.db.patch(post._id, { likes: post.likes - 1 });
+      return false;
+    } else {
+      //add like
+      await ctx.db.insert("likes", {
+        userId: currentUser._id,
+        postId: args.postId,
+      });
+      //increment likes
+      await ctx.db.patch(post._id, { likes: post.likes + 1 });
+
+      //if its not my post create a notification
+      if (post.userId !== currentUser._id) {
+        await ctx.db.insert("notifications", {
+          receiverId: post.userId,
+          senderId: currentUser._id,
+          type: "like",
+          postId: args.postId,
+        });
+      }
+      return true;
+    }
   },
 });
