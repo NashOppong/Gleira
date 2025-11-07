@@ -3,6 +3,7 @@ import Story from "@/components/Story";
 import { colors } from "@/constants/theme";
 import { styles } from "@/styles/feed.styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Image } from "expo-image";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
@@ -12,12 +13,9 @@ export default function Index() {
       <View style={styles.container}>
         {/* HEADER */}
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Gleira</Text>
-          <Ionicons
-            name="leaf"
-            size={24}
-            color={colors.primary}
-            style={styles.logo}
+          <Image
+            source={require("../../assets/images/headerIcon.png")}
+            style={styles.headerIcon}
           />
           <TouchableOpacity onPress={() => "handleSearch"}>
             <Ionicons name="search-outline" size={24} color={colors.white} />
@@ -41,13 +39,8 @@ export default function Index() {
           </Text>
           <Story />
         </View>
-        <View
-          style={{ marginTop: 5 }}
-          //showsVerticalScrollIndicator={false}
-          //scrollEnabled
-        >
-          <PostFlatList />
-        </View>
+
+        <PostFlatList />
       </View>
     </View>
   );

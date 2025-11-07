@@ -70,6 +70,7 @@ export const getFeedPost = query({
         return {
           ...post,
           author: {
+            _id: PostAuthor?._id,
             username: PostAuthor?.username,
             fullname: PostAuthor?.fullname,
             image: PostAuthor?.image,
@@ -134,5 +135,56 @@ export const toggleLike = mutation({
       }
       return true;
     }
+  },
+});
+
+export const deletePost = mutation({
+  args: { postId: v.id("posts") },
+  handler: async (ctx, args) => {
+    const currentUser = await getAuthenticatedUser(ctx);
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+    //verify post owner
+    if (post.userId !== currentUser._id) {
+      throw new Error("Unauthorized");
+    }
+    //delete associated posts.... 1,GET ALL ASSOCIATED LIKES
+    const likes = await ctx.db
+      .query("likes")
+      .withIndex("by_post", (q) => q.eq("postId", args.postId))
+      .collect();
+    // DELETE ALL LIKES
+    for (const like of likes) {
+      await ctx.db.delete(like._id);
+    }
+    //delete associated comments.... 1,GET ALL ASSOCIATED COMMENTS
+    const comments = await ctx.db
+      .query("comments")
+      .withIndex("by_post", (q) => q.eq("postId", args.postId))
+      .collect();
+    // DELETE ALL COMMENTS
+    for (const comment of comments) {
+      await ctx.db.delete(comment._id);
+    }
+
+    //delete associated bookmarks.... 1,GET ALL ASSOCIATED Bookmarks
+    const bookmarks = await ctx.db
+      .query("bookmarks")
+      .withIndex("by_post", (q) => q.eq("postId", args.postId))
+      .collect();
+    // DELETE ALL Bookmarks
+    for (const bookmark of bookmarks) {
+      await ctx.db.delete(bookmark._id);
+    }
+    // DELETE Post media
+    await ctx.storage.delete(post.storageId);
+    //delete post
+    await ctx.db.delete(args.postId);
+    //decrement posts count
+    await ctx.db.patch(currentUser._id, {
+      posts: Math.max(currentUser.posts) - 1,
+    });
   },
 });

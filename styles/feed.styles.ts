@@ -14,8 +14,13 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.surface,
+    // borderBottomWidth: 1,
+    // borderBottomColor: colors.surface,
+  },
+  headerIcon: {
+    width: 70,
+    height: 30,
+    //borderRadius: 16,
   },
   logo: {
     marginRight: 250,
@@ -174,13 +179,14 @@ export const styles = StyleSheet.create({
   },
   modalContainer: {
     backgroundColor: colors.background,
-    marginBottom: Platform.OS === "ios" ? 44 : 0,
+    marginBottom: Platform.OS === "ios" ? 44 : 5,
     flex: 1,
     marginTop: Platform.OS === "ios" ? 44 : 0,
   },
   modalHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
+    //gap: "35%",
     alignItems: "center",
     paddingHorizontal: 16,
     height: 56,
@@ -191,6 +197,7 @@ export const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     fontWeight: "600",
+    //marginRight: 10,
   },
   commentsList: {
     flex: 1,
@@ -234,6 +241,8 @@ export const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderTopColor: colors.surface,
     backgroundColor: colors.background,
+    marginTop: 40,
+    //justifyContent: "center",
   },
   input: {
     flex: 1,
@@ -244,11 +253,13 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: 20,
     fontSize: 14,
+    marginBottom: 10,
   },
   postButton: {
     color: colors.primary,
-    fontWeight: "600",
-    fontSize: 14,
+    //fontWeight: "600",
+    //fontSize: 14,
+    marginBottom: 5,
   },
   postButtonDisabled: {
     opacity: 0.5,

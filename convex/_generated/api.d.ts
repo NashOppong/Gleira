@@ -8,7 +8,10 @@
  * @module
  */
 
+import type * as bookmarks from "../bookmarks.js";
+import type * as comment from "../comment.js";
 import type * as http from "../http.js";
+import type * as notification from "../notification.js";
 import type * as posts from "../posts.js";
 import type * as users from "../users.js";
 
@@ -27,7 +30,10 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  bookmarks: typeof bookmarks;
+  comment: typeof comment;
   http: typeof http;
+  notification: typeof notification;
   posts: typeof posts;
   users: typeof users;
 }>;

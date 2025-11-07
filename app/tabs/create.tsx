@@ -51,6 +51,8 @@ const createScreen = () => {
       console.log(error);
     } finally {
       setIsSharing(false);
+      setSelectedImage(null);
+      setCaption("");
     }
   };
   const pickImage = async () => {

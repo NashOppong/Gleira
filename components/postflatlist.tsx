@@ -28,12 +28,13 @@ const PostFlatList = () => {
   };
 
   return (
-    <View>
+    <View style={{ marginBottom: 250 }}>
       <FlatList
         data={post}
         renderItem={({ item }) => <PostCard item={item} />}
         keyExtractor={(item) => item._id}
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ marginBottom: 60 }}
       />
     </View>
   );

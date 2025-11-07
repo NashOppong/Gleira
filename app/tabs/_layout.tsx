@@ -25,7 +25,7 @@ const TabLayout = () => {
         options={{
           title: "HOME",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+            <Ionicons name="home-outline" size={20} color={color} />
           ),
         }}
       />
@@ -34,7 +34,7 @@ const TabLayout = () => {
         options={{
           title: "BOOKMARKS",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="bookmarks-outline" size={size} color={color} />
+            <Ionicons name="bookmarks-outline" size={20} color={color} />
           ),
         }}
       />
@@ -43,7 +43,7 @@ const TabLayout = () => {
         options={{
           title: "CREATE",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="add-circle-outline" size={size} color={color} />
+            <Ionicons name="add-circle-outline" size={20} color={color} />
           ),
         }}
       />
@@ -52,7 +52,7 @@ const TabLayout = () => {
         options={{
           title: "INBOX",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="mail-outline" size={size} color={color} />
+            <Ionicons name="mail-outline" size={20} color={color} />
           ),
         }}
       />
@@ -61,7 +61,7 @@ const TabLayout = () => {
         options={{
           title: "PROFILE",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
+            <Ionicons name="person-outline" size={20} color={color} />
           ),
         }}
       />
