@@ -50,7 +50,13 @@ export default function Notification({
     <View style={styles.notificationItem}>
       <View style={styles.notificationContent}>
         {/* Href issues */}
-        <Link href={`/notifications/user/${notification.sender.id}`} asChild>
+        <Link
+          href={{
+            pathname: `/user/[id]`,
+            params: { id: notification.sender.id },
+          }}
+          asChild
+        >
           <TouchableOpacity style={styles.avatarContainer}>
             <Image
               source={notification.sender.image}
@@ -72,7 +78,13 @@ export default function Notification({
 
         <View style={styles.notificationInfo}>
           {/* Href issues */}
-          <Link href={`/notifications/user/${notification.sender.id}`} asChild>
+          <Link
+            href={{
+              pathname: `/user/[id]`,
+              params: { id: notification.sender.id },
+            }}
+            asChild
+          >
             <TouchableOpacity>
               <Text style={styles.username}>
                 {notification.sender.username}

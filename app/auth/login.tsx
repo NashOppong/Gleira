@@ -2,9 +2,10 @@ import { colors } from "@/constants/theme";
 import { styles } from "@/styles/auth.styles";
 import { useSSO } from "@clerk/clerk-expo";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const loginPage = () => {
   const { startSSOFlow } = useSSO();
@@ -27,9 +28,13 @@ const loginPage = () => {
       {/* BRAND SECTION */}
       <View style={styles.brandSection}>
         <View style={styles.logoContainer}>
-          <Ionicons name="leaf" size={32} color={colors.primary} />
+          <Image
+            contentFit="cover"
+            source={require("../../assets/images/icon.png")}
+            style={{ height: 100, width: 150 }}
+          />
         </View>
-        <Text style={styles.appName}>Gleira</Text>
+
         <Text style={styles.tagline}>Share Your World</Text>
       </View>
 
@@ -38,7 +43,7 @@ const loginPage = () => {
         <Image
           source={require("../../assets/images/auth-bg-7.png")}
           style={styles.illustration}
-          resizeMode="cover"
+          contentFit="cover"
         />
       </View>
 

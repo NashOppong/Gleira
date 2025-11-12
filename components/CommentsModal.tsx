@@ -23,9 +23,8 @@ type Props = {
   postId: Id<"posts">;
   visible: boolean;
   onClose: () => void;
-  onCommentAdded: () => void;
 };
-const CommentsModal = ({ postId, visible, onClose, onCommentAdded }: Props) => {
+const CommentsModal = ({ postId, visible, onClose }: Props) => {
   const [NewComments, setNewComments] = useState("");
   const addComments = useMutation(api.comment.addComments);
   const comments = useQuery(api.comment.getComments, { postId });
@@ -34,7 +33,6 @@ const CommentsModal = ({ postId, visible, onClose, onCommentAdded }: Props) => {
     try {
       await addComments({ postId, content: NewComments });
       setNewComments("");
-      onCommentAdded();
     } catch (error) {
       console.error("Error adding comment:", error);
     }

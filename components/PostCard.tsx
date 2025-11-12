@@ -30,8 +30,7 @@ export type PostProps = {
 };
 const PostCard = ({ item }: { item: PostProps }) => {
   const [isLiked, setIsLiked] = useState(item.isLiked);
-  const [likesCount, setLikesCount] = useState(item.likes);
-  const [commentsCount, setCommentsCount] = useState(item.comments);
+
   const [showComments, setShowComments] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(item.isBookmarked);
   const toggleLike = useMutation(api.posts.toggleLike);
@@ -75,7 +74,14 @@ const PostCard = ({ item }: { item: PostProps }) => {
     <View style={styles.post}>
       {/* POST HEADER */}
       <View style={styles.postHeader}>
-        <Link href={"/tabs/notifications"}>
+        <Link
+          href={
+            convexUser?._id === item.author._id
+              ? `/user/${convexUser._id}`
+              : `/user/${item.author._id}`
+          }
+          asChild
+        >
           <TouchableOpacity activeOpacity={0.8} style={styles.postHeaderLeft}>
             <Image
               source={item.author.image}
@@ -124,7 +130,7 @@ const PostCard = ({ item }: { item: PostProps }) => {
 
           <TouchableOpacity onPress={() => setShowComments(true)}>
             <Ionicons
-              name="chatbubble-outline"
+              name="chatbubble-ellipses-outline"
               size={22}
               color={colors.primary}
             />
@@ -143,7 +149,7 @@ const PostCard = ({ item }: { item: PostProps }) => {
       {/* INFO */}
       <View style={styles.postInfo}>
         <Text style={styles.likesText}>
-          {likesCount > 0 ? `${likesCount} likes` : "Be The First To Like"}
+          {item.likes > 0 ? `${item.likes} likes` : "Be The First To Like"}
         </Text>
 
         {item.caption && (
@@ -153,10 +159,10 @@ const PostCard = ({ item }: { item: PostProps }) => {
           </View>
         )}
 
-        {commentsCount > 0 ? (
+        {item.comments > 0 ? (
           <TouchableOpacity onPress={() => setShowComments(true)}>
             <Text style={styles.commentsText}>
-              View all {commentsCount} comments
+              View all {item.comments} comments
             </Text>
           </TouchableOpacity>
         ) : (
@@ -170,7 +176,6 @@ const PostCard = ({ item }: { item: PostProps }) => {
       <CommentsModal
         postId={item._id}
         visible={showComments}
-        onCommentAdded={() => setCommentsCount((prev) => prev + 1)}
         onClose={() => setShowComments(false)}
       />
     </View>

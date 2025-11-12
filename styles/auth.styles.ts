@@ -10,11 +10,11 @@ export const styles = StyleSheet.create({
   },
   brandSection: {
     alignItems: "center",
-    marginTop: height * 0.12,
+    marginTop: 60,
   },
   logoContainer: {
-    width: 60,
-    height: 60,
+    //width: 60,
+    //height: 60,
     borderRadius: 18,
     backgroundColor: "rgba(74, 222, 128, 0.15)",
     justifyContent: "center",

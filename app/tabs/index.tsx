@@ -32,7 +32,7 @@ export default function Index() {
               fontWeight: "bold",
               color: colors.white,
               marginHorizontal: 20,
-              marginBottom: 10,
+              //marginBottom: 10,
             }}
           >
             Stories
