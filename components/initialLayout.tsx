@@ -1,27 +1,30 @@
 import { useAuth } from "@clerk/clerk-expo";
 import { Stack, useRouter, useSegments } from "expo-router";
 import React, { useEffect } from "react";
+import { Loader } from "./Loader";
 
-const InitialLayout = () => {
+export default function InitialLayout() {
   const { isLoaded, isSignedIn } = useAuth();
   const segments = useSegments();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoaded || !segments[0]) return;
+    if (!isLoaded) return;
 
-    const inAuthScreen = segments[0] === "auth"; // ✅ must include parentheses
+    const inAuthGroup = segments[0] === "auth";
 
-    if (!isSignedIn && !inAuthScreen) {
-      router.replace("/auth/login"); // ✅ must match folder
-    } else if (isSignedIn && inAuthScreen) {
+    if (!isSignedIn && !inAuthGroup) {
+      router.replace("/auth/login");
+    } else if (isSignedIn && inAuthGroup) {
       router.replace("/tabs");
     }
   }, [isLoaded, isSignedIn, segments]);
 
-  if (!isLoaded) return null;
+  // 🚫 Prevent unmatched route flash
+  if (!isLoaded && !isSignedIn) {
+    return <Loader />;
+  }
 
+  // 👇 After Clerk & routing are ready, render your Stack
   return <Stack screenOptions={{ headerShown: false }} />;
-};
-
-export default InitialLayout;
+}

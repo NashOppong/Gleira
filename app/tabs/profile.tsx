@@ -20,6 +20,7 @@ import {
   View,
 } from "react-native";
 
+import NoPostsFound from "@/components/NoPostsFound";
 import { Id } from "@/convex/_generated/dataModel";
 
 type Post = {
@@ -219,21 +220,5 @@ const profile = () => {
     </View>
   );
 };
-
-function NoPostsFound() {
-  return (
-    <View
-      style={{
-        height: "100%",
-        backgroundColor: colors.background,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Ionicons name="images-outline" size={48} color={colors.primary} />
-      <Text style={{ fontSize: 20, color: colors.white }}>No posts yet</Text>
-    </View>
-  );
-}
 
 export default profile;
